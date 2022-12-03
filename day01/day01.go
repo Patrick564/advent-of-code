@@ -35,12 +35,10 @@ func main() {
 			log.Fatal(err)
 		}
 
-		sum = sum + calorie
+		sum += calorie
 	}
 
 	slices.Sort(result)
-
-	fmt.Println(result)
 
 	fmt.Println(result[len(result)-1])
 	fmt.Println(result[len(result)-1] + result[len(result)-2] + result[len(result)-3])

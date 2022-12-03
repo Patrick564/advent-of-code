@@ -62,6 +62,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer file.Close()
 
 	points := 0
 	secondPoints := 0
@@ -70,8 +71,8 @@ func main() {
 	for scanner.Scan() {
 		round := strings.Split(scanner.Text(), " ")
 
-		points = points + firstPart(round)
-		secondPoints = secondPoints + secondPart(round)
+		points += firstPart(round)
+		secondPoints += secondPart(round)
 	}
 
 	fmt.Println(points)

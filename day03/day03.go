@@ -6,43 +6,54 @@ import (
 	"log"
 	"os"
 	"strings"
-
-	"golang.org/x/exp/slices"
 )
+
+var alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+func firstPart(content string) int {
+	compartments := []string{content[:len(content)/2], content[len(content)/2:]}
+
+	for _, r := range compartments[0] {
+		if strings.ContainsRune(compartments[1], r) {
+			return strings.IndexRune(alphabet, r) + 1
+		}
+	}
+
+	return 0
+}
+
+func secondPart(first, second, third string) int {
+	for _, r := range first {
+		if strings.ContainsRune(second, r) && strings.ContainsRune(third, r) {
+			return strings.IndexRune(alphabet, r) + 1
+		}
+	}
+
+	return 0
+}
 
 func main() {
 	file, err := os.Open("rucksacks.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer file.Close()
 
-	rucksacks := make([][]string, 0)
-	alphabet := strings.Split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", "")
-	scanner := bufio.NewScanner(file)
 	priority := 0
 	badgePriority := 0
 
+	rucksacks := make([]string, 0)
+	scanner := bufio.NewScanner(file)
+
 	for scanner.Scan() {
 		rucksack := scanner.Text()
-		compartments := [][]string{strings.Split(rucksack[:(len(rucksack)/2)], ""), strings.Split(rucksack[len(rucksack)/2:], "")}
 
-		rucksacks = append(rucksacks, strings.Split(rucksack, ""))
-
-		for _, c := range compartments[0] {
-			if slices.Contains(compartments[1], c) {
-				priority = priority + slices.Index(alphabet, c) + 1
-				break
-			}
-		}
+		priority += firstPart(rucksack)
+		rucksacks = append(rucksacks, rucksack)
 	}
 
 	for i := 0; i < len(rucksacks); {
-		for _, s := range rucksacks[i] {
-			if slices.Contains(rucksacks[i+1], s) && slices.Contains(rucksacks[i+2], s) {
-				badgePriority = badgePriority + (slices.Index(alphabet, s) + 1)
-				break
-			}
-		}
+		badgePriority += secondPart(rucksacks[i], rucksacks[i+1], rucksacks[i+2])
 
 		if i == len(rucksacks)-3 {
 			break
