@@ -19,9 +19,9 @@ var (
 		"Z": 3, // Scissors
 	}
 	scheme = map[string][]string{
-		"A": {"Z", "X", "C", "B"}, // A: Wins, Draw | Wins, Lose
-		"C": {"Y", "Z", "B", "A"}, // C: Wins, Draw | Wins, Lose
-		"B": {"X", "Y", "A", "C"}, // B: Wins, Draw | Wins, Lose
+		"A": {"Z", "X", "C", "B"}, // A: Win, Draw | Win, Lose
+		"C": {"Y", "Z", "B", "A"}, // C: Win, Draw | Win, Lose
+		"B": {"X", "Y", "A", "C"}, // B: Win, Draw | Win, Lose
 	}
 )
 

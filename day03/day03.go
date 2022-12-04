@@ -8,8 +8,10 @@ import (
 	"strings"
 )
 
+// Priority values is index + 1
 var alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+// Get values of first part of challenge
 func firstPart(content string) int {
 	compartments := []string{content[:len(content)/2], content[len(content)/2:]}
 
@@ -22,6 +24,7 @@ func firstPart(content string) int {
 	return 0
 }
 
+// Get values of second part of challenge
 func secondPart(first, second, third string) int {
 	for _, r := range first {
 		if strings.ContainsRune(second, r) && strings.ContainsRune(third, r) {
@@ -52,14 +55,13 @@ func main() {
 		rucksacks = append(rucksacks, rucksack)
 	}
 
-	for i := 0; i < len(rucksacks); {
+	// Iterate between all rucksacks and jump every 3 index
+	for i := 0; i < len(rucksacks); i += 3 {
 		badgePriority += secondPart(rucksacks[i], rucksacks[i+1], rucksacks[i+2])
 
 		if i == len(rucksacks)-3 {
 			break
 		}
-
-		i = i + 3
 	}
 
 	fmt.Println(priority)
