@@ -64,6 +64,6 @@ func main() {
 		}
 	}
 
-	fmt.Println(priority)
-	fmt.Println(badgePriority)
+	fmt.Printf("The sum of supply what appears in both compartments is: %d\n", priority)
+	fmt.Printf("The sum of priority supply in three group Elves is: %d\n", badgePriority)
 }

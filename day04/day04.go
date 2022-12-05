@@ -10,23 +10,13 @@ import (
 )
 
 func firstPart(content [][]int) ([][]int, int) {
-	sections := make([][]int, 0)
 	count := 0
+	sections := make([][]int, 0)
 
 	for _, s := range content {
-		first := s[1] - s[0]
-		second := s[3] - s[2]
-
-		if first <= second {
-			if s[0] >= s[2] && s[1] <= s[3] {
-				count += 1
-				continue
-			}
-		} else {
-			if s[2] >= s[0] && s[3] <= s[1] {
-				count += 1
-				continue
-			}
+		if (s[0] >= s[2] && s[1] <= s[3]) || (s[2] >= s[0] && s[3] <= s[1]) {
+			count++
+			continue
 		}
 
 		sections = append(sections, s)
@@ -39,9 +29,7 @@ func secondPart(content [][]int) int {
 	count := 0
 
 	for _, s := range content {
-		if s[2] > s[1] {
-			count += 1
-		} else if s[0] > s[3] {
+		if (s[2] > s[1]) || (s[0] > s[3]) {
 			count += 1
 		}
 	}

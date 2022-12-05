@@ -75,6 +75,6 @@ func main() {
 		secondPoints += secondPart(round)
 	}
 
-	fmt.Println(points)
-	fmt.Println(secondPoints)
+	fmt.Printf("The points with the first strategy are: %d\n", points)
+	fmt.Printf("The points with the second strategy are: %d\n", secondPoints)
 }

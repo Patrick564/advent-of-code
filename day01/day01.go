@@ -40,6 +40,6 @@ func main() {
 
 	slices.Sort(result)
 
-	fmt.Println(result[len(result)-1])
-	fmt.Println(result[len(result)-1] + result[len(result)-2] + result[len(result)-3])
+	fmt.Printf("The total of Elf with more calories is: %d\n", result[len(result)-1])
+	fmt.Printf("The total of top three Elves with more calories is: %d\n", result[len(result)-1]+result[len(result)-2]+result[len(result)-3])
 }
