@@ -9,6 +9,46 @@ import (
 	"strings"
 )
 
+func firstPart(content [][]int) ([][]int, int) {
+	sections := make([][]int, 0)
+	count := 0
+
+	for _, s := range content {
+		first := s[1] - s[0]
+		second := s[3] - s[2]
+
+		if first <= second {
+			if s[0] >= s[2] && s[1] <= s[3] {
+				count += 1
+				continue
+			}
+		} else {
+			if s[2] >= s[0] && s[3] <= s[1] {
+				count += 1
+				continue
+			}
+		}
+
+		sections = append(sections, s)
+	}
+
+	return sections, count
+}
+
+func secondPart(content [][]int) int {
+	count := 0
+
+	for _, s := range content {
+		if s[2] > s[1] {
+			count += 1
+		} else if s[0] > s[3] {
+			count += 1
+		}
+	}
+
+	return count
+}
+
 func main() {
 	file, err := os.Open("sections.txt")
 	if err != nil {
@@ -16,11 +56,10 @@ func main() {
 	}
 	defer file.Close()
 
-	pairs := 0
-	noPairs := 0
 	sections := make([][]int, 0)
 	scanner := bufio.NewScanner(file)
 
+	// Replace the comma to '-' to get and split [0, 2, 3, 6] and convert every to int
 	for scanner.Scan() {
 		line := strings.Split(strings.Replace(scanner.Text(), ",", "-", 1), "-")
 		section := make([]int, 0, 4)
@@ -37,34 +76,9 @@ func main() {
 		sections = append(sections, section)
 	}
 
-	freeSections := make([][]int, 0)
-	for _, s := range sections {
-		first := s[1] - s[0]
-		second := s[3] - s[2]
+	noOverlapSections, countFullOverlap := firstPart(sections)
+	countNoOverlap := secondPart(noOverlapSections)
 
-		if first <= second {
-			if s[0] >= s[2] && s[1] <= s[3] {
-				pairs += 1
-				continue
-			}
-		} else {
-			if s[2] >= s[0] && s[3] <= s[1] {
-				pairs += 1
-				continue
-			}
-		}
-
-		freeSections = append(freeSections, s)
-	}
-
-	for _, s := range freeSections {
-		if s[2] > s[1] {
-			noPairs += 1
-		} else if s[0] > s[3] {
-			noPairs += 1
-		}
-	}
-
-	fmt.Println(pairs)
-	fmt.Println(len(sections) - noPairs)
+	fmt.Printf("The count for full overlap sections is: %d\n", countFullOverlap)
+	fmt.Printf("The count for full and partial overlap sections is: %d\n", len(sections)-countNoOverlap)
 }
