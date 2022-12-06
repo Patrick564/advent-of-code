@@ -11,18 +11,59 @@ import (
 	"golang.org/x/exp/slices"
 )
 
+type stacks map[int][]string
+
+type move struct {
+	Crates int
+	From   int
+	To     int
+}
+
+func createStacks(content [][]string) stacks {
+	stks := make(stacks)
+
+	for _, s := range content[0] {
+		i, _ := strconv.Atoi(s)
+
+		for _, c := range content[1:] {
+			if len(c) < i || c[i-1] == "-" {
+				continue
+			}
+
+			stks[i] = append(stks[i], c[i-1])
+		}
+	}
+
+	return stks
+}
+
+func firstPart(s stacks, moves []move) {
+	for _, m := range moves {
+		for i := 1; i <= m.Crates; i++ {
+			s[m.To] = append(s[m.To], s[m.From][len(s[m.From])-1])
+			s[m.From] = s[m.From][:len(s[m.From])-1]
+		}
+	}
+}
+
+func secondPart(s stacks, moves []move) {
+	for _, m := range moves {
+		s[m.To] = append(s[m.To], s[m.From][len(s[m.From])-m.Crates:]...)
+		s[m.From] = s[m.From][:len(s[m.From])-m.Crates]
+	}
+}
+
 func main() {
 	file, err := os.Open("crates.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	stacks := make(map[int][]string, 9)
-	copyStacks := make(map[int][]string, len(stacks))
-	moves := make([][]int, 0)
+	moves := make([]move, 0)
+	rawStacks := make([][]string, 0)
+	replacer := strings.NewReplacer("    ", "-", "[", "", "]", "", " ", "")
 
 	scanner := bufio.NewScanner(file)
-	replacer := strings.NewReplacer("    ", "-", "[", "", "]", "", " ", "")
 
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -33,57 +74,31 @@ func main() {
 
 		if string(line[0]) == " " || string(line[0]) == "[" {
 			crates := strings.Split(replacer.Replace(line), "")
-			if len(crates) < 9 {
-				crates = append(crates, "-")
-			}
-			if crates[0] == "1" {
-				continue
-			}
-
-			for idx, c := range crates {
-				if c == "1" {
-					break
-				}
-				if c == "-" {
-					continue
-				}
-
-				stacks[idx+1] = slices.Insert(stacks[idx+1], 0, c)
-				copyStacks[idx+1] = slices.Insert(copyStacks[idx+1], 0, c)
-			}
-
+			rawStacks = slices.Insert(rawStacks, 0, crates)
 			continue
 		}
 
 		instruction := strings.Split(line, " ")
-		move := make([]int, 0)
+		m := make([]int, 0, 3)
 
-		for idx, i := range instruction {
-			if idx%2 != 0 {
-				c, err := strconv.Atoi(i)
-				if err != nil {
-					log.Fatal(err)
-				}
-
-				move = append(move, c)
+		for _, i := range instruction {
+			c, err := strconv.Atoi(i)
+			if err != nil {
+				continue
 			}
+
+			m = append(m, c)
 		}
 
-		moves = append(moves, move)
+		moves = append(moves, move{Crates: m[0], From: m[1], To: m[2]})
 	}
 
-	for _, m := range moves {
-		for i := 1; i <= m[0]; i++ {
-			stacks[m[2]] = append(stacks[m[2]], stacks[m[1]][len(stacks[m[1]])-1])
-			stacks[m[1]] = stacks[m[1]][:len(stacks[m[1]])-1]
-		}
-	}
+	stacks := createStacks(rawStacks)
+	copyStacks := createStacks(rawStacks)
 
-	for _, m := range moves {
-		copyStacks[m[2]] = append(copyStacks[m[2]], copyStacks[m[1]][len(copyStacks[m[1]])-m[0]:]...)
-		copyStacks[m[1]] = copyStacks[m[1]][:len(copyStacks[m[1]])-m[0]]
-	}
+	firstPart(stacks, moves)
+	secondPart(copyStacks, moves)
 
-	fmt.Println(stacks)
-	fmt.Println(copyStacks)
+	fmt.Printf("First rearrangement: %+v\n", stacks)
+	fmt.Printf("Second rearrangement: %+v\n", copyStacks)
 }
