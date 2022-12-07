@@ -25,7 +25,7 @@ func findSubstring(content []byte, chars int) ([]byte, int) {
 		packetMarker = append(packetMarker[i+1:], b)
 	}
 
-	return []byte{}, 0
+	return nil, 0
 }
 
 func main() {

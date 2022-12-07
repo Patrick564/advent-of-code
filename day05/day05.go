@@ -20,7 +20,7 @@ type move struct {
 }
 
 func createStacks(content [][]string) stacks {
-	stks := make(stacks)
+	stks := make(stacks, 0)
 
 	for _, s := range content[0] {
 		i, _ := strconv.Atoi(s)
@@ -35,6 +35,17 @@ func createStacks(content [][]string) stacks {
 	}
 
 	return stks
+}
+
+func makeCopy(s stacks) stacks {
+	copyStack := make(stacks, len(s))
+
+	for k, v := range s {
+		copyStack[k] = make([]string, len(v))
+		copy(copyStack[k], v)
+	}
+
+	return copyStack
 }
 
 func firstPart(s stacks, moves []move) {
@@ -67,7 +78,6 @@ func main() {
 
 	for scanner.Scan() {
 		line := scanner.Text()
-
 		if line == "" {
 			continue
 		}
@@ -94,7 +104,7 @@ func main() {
 	}
 
 	stacks := createStacks(rawStacks)
-	copyStacks := createStacks(rawStacks)
+	copyStacks := makeCopy(stacks)
 
 	firstPart(stacks, moves)
 	secondPart(copyStacks, moves)
