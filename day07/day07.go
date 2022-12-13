@@ -31,8 +31,17 @@ func sumFileSizes(dir []string, dirs [][]string) int {
 	return count
 }
 
+// type directory struct {
+// 	name    string
+// 	cat     string
+// 	size    int
+// 	content []string
+// }
+
+// type filesystem []*directory
+
 func main() {
-	file, err := os.ReadFile("ex.txt")
+	file, err := os.ReadFile("output.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -43,6 +52,31 @@ func main() {
 	dirs := make([][]string, 0)
 
 	depth := 0
+
+	// di := new(directory)
+	// fs := make(filesystem, 0)
+	// // lastDir := ""
+
+	// for _, c := range commands {
+	// 	line := strings.Split(c, " ")
+
+	// 	if line[0] == "$" && line[1] == "cd" {
+	// 		if line[2] != ".." {
+	// 			fs = append(fs, &directory{})
+	// 			// lastDir = line[2]
+	// 			continue
+	// 		}
+	// 	}
+
+	// 	if line[0] == "dir" {
+	// 		// fs[lastDir].content = append(fs[lastDir].content, line[1])
+
+	// 	}
+
+	// 	strconv.Atoi(line[0])
+	// }
+
+	// depth = 0
 
 	for idx, c := range commands {
 		line := strings.Split(c, " ")
@@ -130,4 +164,10 @@ func main() {
 	fmt.Println(res)
 	fmt.Println(unusedSpaceDisk)
 	fmt.Println(sol)
+
+	// fmt.Println("----")
+
+	// for k, v := range fs {
+	// 	fmt.Println(k, v)
+	// }
 }
