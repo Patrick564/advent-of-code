@@ -5,6 +5,7 @@ internal abstract class _2017
     private static void Main(string[] args)
     {
         var day01 = new Day01.Day01();
+        var day02 = new Day02.Day02();
         
         switch (int.Parse(args[0]))
         {
@@ -13,6 +14,8 @@ internal abstract class _2017
                 day01.Part02();
                 break;
             case 2:
+                day02.Part01();
+                day02.Part02();
                 break;
             case 3:
                 break;
