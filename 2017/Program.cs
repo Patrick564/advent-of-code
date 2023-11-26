@@ -12,6 +12,7 @@ internal abstract class _2017
         var day06 = new Day06.Day06();
         var day07 = new Day07.Day07();
         var day08 = new Day08.Day08();
+        var day09 = new Day09.Day09();
         
         switch (int.Parse(args[0]))
         {
@@ -46,6 +47,8 @@ internal abstract class _2017
                 day08.Part01();
                 break;
             case 9:
+                day09.Part01();
+                day09.Part02();
                 break;
             case 10:
                 break;
