@@ -16,6 +16,7 @@ internal abstract class _2017
         var day10 = new Day10.Day10();
         var day11 = new Day11.Day11();
         var day12 = new Day12.Day12();
+        var day13 = new Day13.Day13();
         
         switch (int.Parse(args[0]))
         {
@@ -64,6 +65,8 @@ internal abstract class _2017
                 day12.Part01();
                 break;
             case 13:
+                day13.Part01();
+                day13.Part02();
                 break;
             case 14:
                 break;
