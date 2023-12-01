@@ -30,6 +30,9 @@ public class Day01
     {
         var calibration = File.ReadAllLines(_filePath);
         
+        // This works for a first left search then a right search finding first digits of every side.
+        // new Regex("(one)|(two)|(three)|(four)|(five)|(six)|(seven)|(eight)|(nine)|[1-9]");
+        
         for (var i = 0; i < calibration.Length; i++)
         {
             foreach (var item in _equivalence)
