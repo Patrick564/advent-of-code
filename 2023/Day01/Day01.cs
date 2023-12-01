@@ -8,60 +8,49 @@ public class Day01
     
     private readonly Dictionary<string, string> _equivalence = new()
     {
-        { "one", "1" },
-        { "two", "2" },
-        { "three", "3" },
-        { "four", "4" },
-        { "five", "5" },
-        { "six", "6" },
-        { "seven", "7" },
-        { "eight", "8" },
-        { "nine", "9" }
+        { "one", "o1e" },
+        { "two", "t2o" },
+        { "three", "t3e" },
+        { "four", "f4r" },
+        { "five", "f5e" },
+        { "six", "s6x" },
+        { "seven", "s7n" },
+        { "eight", "e8t" },
+        { "nine", "n9e" }
     };
 
     public void Part01()
     {
-        var calibrationValues = File.ReadAllLines(_filePath);
-        var rx = new Regex("[0-9]");
-        
-        var calibrationSum = calibrationValues
-            .Select(value => rx.Matches(value))
-            .Select(match => int.Parse(match.First().Value + match.Last().Value))
-            .Sum();
+        var calibration = File.ReadAllLines(_filePath);
 
-        Console.WriteLine($"Calibration values sum: {calibrationSum}");
+        Console.WriteLine($"Calibration values sum: {_sumValues(calibration)}");
     }
 
     public void Part02()
     {
         var calibration = File.ReadAllLines(_filePath);
         
-        var totalSum = 0;
-
-        foreach (var value in calibration)
+        for (var i = 0; i < calibration.Length; i++)
         {
-            var values = new List<string>();
-            
-            for (var i = 0; i < value.Length; i++)
+            foreach (var item in _equivalence)
             {
-                if (int.TryParse(value[i].ToString(), out var digit))
+                if (calibration[i].Contains(item.Key))
                 {
-                    values.Add(digit.ToString());
-                    continue;
-                }
-
-                for (var j = i + 1; j < value.Length; j++)
-                {
-                    if (_equivalence.TryGetValue(value[i] + value.Substring(i + 1, j - i), out var word))
-                    {
-                        values.Add(word);
-                    }
+                    calibration[i] = calibration[i].Replace(item.Key, item.Value);
                 }
             }
-            
-            totalSum += int.Parse(values.First() + values.Last());
         }
         
-        Console.WriteLine($"Calibration values sum: {totalSum}");
+        Console.WriteLine($"Calibration values sum: {_sumValues(calibration)}");
+    }
+
+    private static int _sumValues(IEnumerable<string> values)
+    {
+        var rx = new Regex("[0-9]");
+        
+        return values
+            .Select(value => rx.Matches(value))
+            .Select(match => int.Parse(match.First().Value + match.Last().Value))
+            .Sum();
     }
 }
