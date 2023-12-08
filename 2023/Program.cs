@@ -11,6 +11,7 @@ internal abstract class Program
         var day05 = new Day05.Day05();
         var day06 = new Day06.Day06();
         var day07 = new Day07.Day07();
+        var day08 = new Day08.Day08();
 
         switch (int.Parse(args[0]))
         {
@@ -41,6 +42,10 @@ internal abstract class Program
             case 7:
                 day07.Part01();
                 day07.Part02();
+                break;
+            case 8:
+                day08.Part01();
+                day08.Part02();
                 break;
         }
     }
