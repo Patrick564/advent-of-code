@@ -1,4 +1,4 @@
-﻿using _2023.Utils;
+using _2023.Utils;
 
 namespace _2023.Day07;
 
@@ -8,7 +8,7 @@ public class Day07
 
     public Day07()
     {
-        var rawHands = new ReadInput("Day07").LoadAsList("input");
+        var rawHands = new LoadFile(7).AsList(FileType.Test);
 
         _hands = rawHands.Select(hand => new Hand(hand)).ToList();
     }

@@ -1,8 +1,10 @@
-﻿namespace _2023.Day02;
+using _2023.Utils;
+
+namespace _2023.Day02;
 
 public class Day02
 {
-    private readonly string _filePath = Path.Join(".", "Day02", "input.txt");
+    private readonly string _filePath = new LoadFile(2).AsString(FileType.Test);
 
     public void Part01()
     {

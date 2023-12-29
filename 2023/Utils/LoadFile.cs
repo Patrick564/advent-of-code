@@ -1,8 +1,8 @@
-﻿namespace _2023.Utils;
+namespace _2023.Utils;
 
-public class LoadFile(string dir)
+public class LoadFile(int day)
 {
-    private readonly string _dir = dir;
+    private readonly int _day = day;
 
     private string Load(FileType file)
     {
@@ -12,14 +12,14 @@ public class LoadFile(string dir)
         {
             content = file switch
             {
-                FileType.Input => File.ReadAllText(Path.Join(".", _dir, "input.txt")),
-                FileType.Test => File.ReadAllText(Path.Join(".", _dir, "test.txt")),
+                FileType.Input => File.ReadAllText(Path.Join(".", $"Day{_day}", "input.txt")),
+                FileType.Test => File.ReadAllText(Path.Join(".", $"Day{_day}", "test.txt")),
                 _ => ""
             };
         }
-        catch (FileNotFoundException e)
+        catch (FileNotFoundException)
         {
-            Console.WriteLine($"The file {e.FileName} not exists, create first or check the path.");
+            Console.WriteLine($"The file not exists, create first or check the path.");
         }
 
         return content;

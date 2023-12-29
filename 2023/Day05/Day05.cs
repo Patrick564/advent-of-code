@@ -1,4 +1,4 @@
-﻿using _2023.Utils;
+using _2023.Utils;
 
 namespace _2023.Day05;
 
@@ -9,7 +9,7 @@ public class Day05
 
     public Day05()
     {
-        var rawAlmanac = new ReadInput("Day05").LoadAsList("input");
+        var rawAlmanac = new LoadFile(5).AsList(FileType.Test);
 
         _seeds = rawAlmanac[0].Split(": ")[1].Split().Select(long.Parse).ToList();
         _maps = new List<List<Map>>();

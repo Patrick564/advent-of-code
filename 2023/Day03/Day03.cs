@@ -1,8 +1,10 @@
-﻿namespace _2023.Day03;
+using _2023.Utils;
+
+namespace _2023.Day03;
 
 public class Day03
 {
-    private readonly string _filePath = Path.Join(".", "Day03", "input.txt");
+    private readonly string _filePath = new LoadFile(3).AsString(FileType.Test);
 
     private const string StringNumbers = "0123456789";
 
@@ -52,7 +54,7 @@ public class Day03
 
     public void Part01()
     {
-        var totalSum = 0;
+        var result = 0;
 
         foreach (var symbol in Symbols)
         {
@@ -69,16 +71,16 @@ public class Day03
                     numbers.Add(number);
                 }
 
-                totalSum += numbers.Distinct().Sum();
+                result += numbers.Distinct().Sum();
             }
         }
 
-        Console.WriteLine($"Sum of part numbers: {totalSum}");
+        Console.WriteLine($"Sum of part numbers: {result}");
     }
 
     public void Part02()
     {
-        var totalMult = 0;
+        var result = 0;
 
         foreach (var symbol in Symbols.Where(symbol => symbol.Value == '*'))
         {
@@ -100,10 +102,10 @@ public class Day03
 
             var uniques = numbers.Distinct().ToList();
 
-            if (uniques.Count == 2) totalMult += uniques[0] * uniques[1];
+            if (uniques.Count == 2) result += uniques[0] * uniques[1];
         }
 
-        Console.WriteLine($"Sum of all gear ratios: {totalMult}");
+        Console.WriteLine($"Sum of all gear ratios: {result}");
     }
 }
 

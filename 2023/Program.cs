@@ -1,4 +1,4 @@
-﻿namespace _2023;
+namespace _2023;
 
 internal abstract class Program
 {

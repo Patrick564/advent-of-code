@@ -1,10 +1,10 @@
-﻿using _2023.Utils;
+using _2023.Utils;
 
 namespace _2023.Day11;
 
 public class Day11
 {
-    private readonly List<string> _universe = new LoadFile("Day11").AsList(FileType.Input);
+    private readonly List<string> _universe = new LoadFile(11).AsList(FileType.Input);
 
     public void Solve()
     {

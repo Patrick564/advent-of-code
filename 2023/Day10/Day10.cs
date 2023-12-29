@@ -1,4 +1,4 @@
-﻿using _2023.Utils;
+using _2023.Utils;
 
 namespace _2023.Day10;
 
@@ -9,7 +9,7 @@ public class Day10
 
     public Day10()
     {
-        var rawGridTiles = new LoadFile("Day10").AsList(FileType.Input);
+        var rawGridTiles = new LoadFile(10).AsList(FileType.Input);
 
         _gridTiles = rawGridTiles.Select(tile => tile.ToList()).ToList();
         _start = new Coordinate(0, 0);

@@ -1,4 +1,4 @@
-﻿using _2023.Utils;
+using _2023.Utils;
 
 namespace _2023.Day09;
 
@@ -8,7 +8,7 @@ public class Day09
 
     public Day09()
     {
-        var rawReport = new ReadInput("Day09").LoadAsList("input");
+        var rawReport = new LoadFile(9).AsList(FileType.Test);
 
         _report = rawReport.Select(report => new History(report.Split().Select(int.Parse))).ToList();
     }

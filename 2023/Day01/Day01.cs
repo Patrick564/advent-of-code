@@ -1,11 +1,12 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
+using _2023.Utils;
 
 namespace _2023.Day01;
 
 public class Day01
 {
-    private readonly string _filePath = Path.Join(".", "Day01", "input.txt");
-    
+    private readonly string _filePath = new LoadFile(1).AsString(FileType.Test);
+
     private readonly Dictionary<string, string> _equivalence = new()
     {
         { "one", "o1e" },
@@ -29,10 +30,10 @@ public class Day01
     public void Part02()
     {
         var calibration = File.ReadAllLines(_filePath);
-        
+
         // This works for a first left search then a right search finding first digits of every side.
         // new Regex("(one)|(two)|(three)|(four)|(five)|(six)|(seven)|(eight)|(nine)|[1-9]");
-        
+
         for (var i = 0; i < calibration.Length; i++)
         {
             foreach (var item in _equivalence)
@@ -43,14 +44,14 @@ public class Day01
                 }
             }
         }
-        
+
         Console.WriteLine($"Calibration values sum: {_sumValues(calibration)}");
     }
 
     private static int _sumValues(IEnumerable<string> values)
     {
         var rx = new Regex("[0-9]");
-        
+
         return values
             .Select(value => rx.Matches(value))
             .Select(match => int.Parse(match.First().Value + match.Last().Value))

@@ -1,4 +1,4 @@
-﻿using _2023.Utils;
+using _2023.Utils;
 
 namespace _2023.Day06;
 
@@ -8,7 +8,7 @@ public class Day06
 
     public Day06()
     {
-        var rawSheet = new ReadInput("Day06").LoadAsList("input");
+        var rawSheet = new LoadFile(6).AsList(FileType.Test);
 
         var timeList = rawSheet[0].Split(":")[1].Split().Where(item => item != "").ToList();
         var distanceList = rawSheet[1].Split(":")[1].Split().Where(item => item != "").ToList();

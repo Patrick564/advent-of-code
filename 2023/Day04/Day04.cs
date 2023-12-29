@@ -1,4 +1,4 @@
-﻿using _2023.Utils;
+using _2023.Utils;
 
 namespace _2023.Day04;
 
@@ -8,7 +8,7 @@ public class Day04
 
     public Day04()
     {
-        var rawCards = new ReadInput("Day04").LoadAsList("input");
+        var rawCards = new LoadFile(4).AsList(FileType.Test);
 
         _cards = rawCards.Select(raw => new Card(raw)).ToList();
         _cards.ForEach(card => card.SetCopies(_cards));

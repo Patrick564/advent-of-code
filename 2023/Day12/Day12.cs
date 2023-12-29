@@ -1,4 +1,4 @@
-﻿using _2023.Utils;
+using _2023.Utils;
 
 namespace _2023.Day12;
 
@@ -8,7 +8,7 @@ public class Day12
 
     public Day12()
     {
-        var rawRecords = new LoadFile("Day12").AsList(FileType.Input);
+        var rawRecords = new LoadFile(12).AsList(FileType.Input);
 
         _records = new List<Record>();
 

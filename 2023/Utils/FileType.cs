@@ -1,4 +1,4 @@
-﻿namespace _2023.Utils;
+namespace _2023.Utils;
 
 public enum FileType
 {

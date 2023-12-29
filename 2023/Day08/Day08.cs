@@ -1,4 +1,4 @@
-﻿using _2023.Utils;
+using _2023.Utils;
 
 namespace _2023.Day08;
 
@@ -9,7 +9,7 @@ public class Day08
 
     public Day08()
     {
-        var rawInstructions = new ReadInput("Day08").LoadAsList("input");
+        var rawInstructions = new LoadFile(8).AsList(FileType.Test);
         var network = rawInstructions.Slice(2, rawInstructions.Count - 2);
 
         _steps = rawInstructions[0]
