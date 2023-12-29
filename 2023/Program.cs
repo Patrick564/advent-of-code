@@ -60,6 +60,9 @@ internal abstract class Program
             case 11:
                 day11.Solve();
                 break;
+            case 12:
+                day12.Solve();
+                break;
         }
     }
 }
